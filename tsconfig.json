@@ -11,5 +11,11 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs",
+      "target": "ES6"
+    }
   }
 }
