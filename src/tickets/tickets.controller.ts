@@ -1,9 +1,13 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
+import { Ticket } from './entities/ticket';
+import { TicketsService } from './tickets.service';
 
 @Controller('tickets')
 export class TicketsController {
-  @Get()
-  findAll() {
-    return 'this is tickets naja';
+  constructor(private readonly ticketsService: TicketsService) {}
+
+  @Post()
+  async create(@Body() body) {
+    return this.ticketsService.create(body as Ticket);
   }
 }
