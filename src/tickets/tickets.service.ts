@@ -10,7 +10,7 @@ export class TicketsService {
     private readonly ticketsRepository: Repository<Ticket>,
   ) {}
 
-  create(ticketDto: Omit<Ticket, 'id'>): Promise<Ticket> {
+  async create(ticketDto: Omit<Ticket, 'id'>): Promise<Ticket> {
     const now = new Date();
     const ticket = new Ticket();
     ticket.title = ticketDto.title;
@@ -18,6 +18,26 @@ export class TicketsService {
     ticket.contact = ticketDto.contact;
     ticket.information = ticketDto.information;
     ticket.createdAt = now;
+    ticket.updatedAt = now;
+
+    return this.ticketsRepository.save(ticket);
+  }
+
+  async update(ticketDto: Partial<Ticket>): Promise<Ticket> {
+    const [ticket] = await this.ticketsRepository.find({
+      where: {
+        id: ticketDto.id,
+      },
+    });
+    if (!ticket) {
+      throw new Error('Ticket is not exists.');
+    }
+
+    const now = new Date();
+    ticketDto.title && (ticket.title = ticketDto.title);
+    ticketDto.description && (ticket.description = ticketDto.description);
+    ticketDto.contact && (ticket.contact = ticketDto.contact);
+    ticketDto.information && (ticket.information = ticketDto.information);
     ticket.updatedAt = now;
 
     return this.ticketsRepository.save(ticket);
