@@ -11,7 +11,9 @@ import { TicketsService } from './tickets/tickets.service';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      envFilePath: ['.env', '.env.example'],
+    }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: getBackendEnv,
