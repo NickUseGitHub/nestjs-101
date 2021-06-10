@@ -1,0 +1,9 @@
+db
+dist
+node_modules
+rest-clients
+README.md
+
+.env
+.vscode
+docker-compose.y*ml

@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Get,
   Param,
   Post,
   Put,
@@ -12,6 +13,11 @@ import { TicketsService } from './tickets.service';
 @Controller('tickets')
 export class TicketsController {
   constructor(private readonly ticketsService: TicketsService) {}
+
+  @Get()
+  async getAll() {
+    return this.ticketsService.getAll();
+  }
 
   @Post()
   async create(@Body() ticket: Omit<Ticket, 'id'>) {

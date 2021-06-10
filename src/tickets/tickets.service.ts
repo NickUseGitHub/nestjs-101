@@ -10,6 +10,10 @@ export class TicketsService {
     private readonly ticketsRepository: Repository<Ticket>,
   ) {}
 
+  async getAll(): Promise<Ticket[]> {
+    return this.ticketsRepository.find();
+  }
+
   async create(ticketDto: Omit<Ticket, 'id'>): Promise<Ticket> {
     const now = new Date();
     const ticket = new Ticket();

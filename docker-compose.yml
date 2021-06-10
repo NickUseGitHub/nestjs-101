@@ -12,3 +12,17 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=mydb
+
+  app:
+    build:
+      context: .
+    depends_on:
+      - dbpostgres
+    expose:
+      - '8001'
+    links:
+      - dbpostgres
+    ports:
+      - '8001:8001'
+    env_file:
+      - .env.example
